@@ -23,13 +23,8 @@ func RollADie() int {
 
 // GenerateWandEnergy devuelve un float64 f aleatorio con 0.0 <= f < 12.0
 func GenerateWandEnergy() float64 {
-	source := rand.NewSource(time.Now().UnixNano())
-	ra := rand.New(source)
-	fmt.Println(ra.Float64())
-	var min float64 = 0
-	var max float64 = 12.0
-	r := min + rand.Float64()*(max-min)
-	return r
+
+	return rand.Float64()
 }
 
 // ShuffleAnimals devuelve un segmento con las ocho cadenas de animales en orden aleatorio
