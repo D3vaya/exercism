@@ -1,10 +1,20 @@
-package booking
+//package booking
+package main
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // Schedule returns a time.Time from a string containing a date
 func Schedule(date string) time.Time {
-	panic("Please implement the Schedule function")
+	const (
+		layout = "2019-07-25 13:45:00 +0000 UTC"
+	)
+	t, _ := time.Parse(layout, date)
+	fmt.Println(t)
+
+	return t
 }
 
 // HasPassed returns whether a date has passed
@@ -25,4 +35,8 @@ func Description(date string) string {
 // AnniversaryDate returns a Time with this year's anniversary
 func AnniversaryDate() time.Time {
 	panic("Please implement the AnniversaryDate function")
+}
+
+func main() {
+	Schedule("7/25/2019 13:45:00")
 }
