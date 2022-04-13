@@ -1,8 +1,13 @@
 package sorting
 
+import (
+	"fmt"
+	"strconv"
+)
+
 // DescribeNumber should return a string describing the number.
 func DescribeNumber(f float64) string {
-	panic("Please implement DescribeNumber")
+	return fmt.Sprintf("This is the number %.1f", f)
 }
 
 type NumberBox interface {
@@ -11,7 +16,7 @@ type NumberBox interface {
 
 // DescribeNumberBox should return a string describing the NumberBox.
 func DescribeNumberBox(nb NumberBox) string {
-	panic("Please implement DescribeNumberBox")
+	return fmt.Sprintf("This is a box containing the number %v.0", nb.Number())
 }
 
 type FancyNumber struct {
@@ -29,15 +34,49 @@ type FancyNumberBox interface {
 // ExtractFancyNumber should return the integer value for a FancyNumber
 // and 0 if any other FancyNumberBox is supplied.
 func ExtractFancyNumber(fnb FancyNumberBox) int {
-	panic("Please implement ExtractFancyNumber")
+	num, err := strconv.Atoi(fnb.Value())
+	fmt.Println(num, err)
+	if err != nil {
+		return 0
+	}
+	if num < 10 {
+		return 0
+	}
+	return num
 }
 
 // DescribeFancyNumberBox should return a string describing the FancyNumberBox.
 func DescribeFancyNumberBox(fnb FancyNumberBox) string {
-	panic("Please implement DescribeFancyNumberBox")
+	num, err := strconv.Atoi(fnb.Value())
+	if err != nil {
+		return fmt.Sprintf("This is a fancy box containing the number 0.0")
+	}
+	if num < 10 {
+		return fmt.Sprintf("This is a fancy box containing the number 0.0")
+	}
+
+	return fmt.Sprintf("This is a fancy box containing the number %.1f", float64(num))
 }
 
 // DescribeAnything should return a string describing whatever it contains.
 func DescribeAnything(i interface{}) string {
-	panic("Please implement DescribeAnything")
+	n, ok := i.(int)
+	if ok {
+		return DescribeNumber(float64(n))
+	}
+	n64, ok := i.(float64)
+	if ok {
+		return DescribeNumber(n64)
+	}
+	nb, ok := i.(NumberBox)
+	if ok {
+		return DescribeNumberBox(nb)
+	}
+	fn, ok := i.(FancyNumberBox)
+	if ok {
+		return DescribeFancyNumberBox(fn)
+	}
+
+	return "Return to sender"
+
 }
